@@ -1,2 +1,2 @@
-# Squad
-Social Messaging for Sports Teams
+# Shift
+Social Messaging for Espionage
