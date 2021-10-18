@@ -1,2 +1,2 @@
-# Shift
-Social Messaging for Espionage
+# Chatter
+Rapid Short Messaging for avoiding surveillance
