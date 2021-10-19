@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/Chatter/static/css/main.a617e044.chunk.css",
+    "main.js": "/Chatter/static/js/main.1744718d.chunk.js",
+    "main.js.map": "/Chatter/static/js/main.1744718d.chunk.js.map",
+    "runtime-main.js": "/Chatter/static/js/runtime-main.a947f1a4.js",
+    "runtime-main.js.map": "/Chatter/static/js/runtime-main.a947f1a4.js.map",
+    "static/js/2.700652e0.chunk.js": "/Chatter/static/js/2.700652e0.chunk.js",
+    "static/js/2.700652e0.chunk.js.map": "/Chatter/static/js/2.700652e0.chunk.js.map",
+    "static/js/3.a9013fbc.chunk.js": "/Chatter/static/js/3.a9013fbc.chunk.js",
+    "static/js/3.a9013fbc.chunk.js.map": "/Chatter/static/js/3.a9013fbc.chunk.js.map",
+    "index.html": "/Chatter/index.html",
+    "static/css/main.a617e044.chunk.css.map": "/Chatter/static/css/main.a617e044.chunk.css.map",
+    "static/js/2.700652e0.chunk.js.LICENSE.txt": "/Chatter/static/js/2.700652e0.chunk.js.LICENSE.txt",
+    "static/media/logo.6ce24c58.svg": "/Chatter/static/media/logo.6ce24c58.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.a947f1a4.js",
+    "static/js/2.700652e0.chunk.js",
+    "static/css/main.a617e044.chunk.css",
+    "static/js/main.1744718d.chunk.js"
+  ]
+}
