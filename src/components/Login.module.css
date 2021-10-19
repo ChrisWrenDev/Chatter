@@ -1,0 +1,27 @@
+.form {
+  width: 100vw;
+  height: 100vh;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.form__card {
+  width: 30rem;
+  align-self: center;
+  padding: 3rem;
+}
+
+.form__card form {
+  margin-bottom: 2rem;
+}
+
+#form_username label {
+  text-align: left;
+}
+
+.login__btn,
+.connect__btn {
+  width: 100%;
+}
