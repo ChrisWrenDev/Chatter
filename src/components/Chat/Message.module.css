@@ -1,0 +1,9 @@
+.message {
+  padding: 10px;
+}
+
+.message__timer {
+  height: 0.5rem;
+  border-radius: 0;
+  background-color: transparent;
+}

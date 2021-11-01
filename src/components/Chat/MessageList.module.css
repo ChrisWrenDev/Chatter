@@ -1,0 +1,17 @@
+.messages__container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  overflow-y: auto;
+  padding-bottom: 20px;
+}
+
+.messages__feed {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: flex-end; */
+  gap: 20px;
+}
