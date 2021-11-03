@@ -5,3 +5,8 @@
 .login__btn {
   width: 100%;
 }
+
+.logout__btn {
+  width: 100%;
+  background: green;
+}
