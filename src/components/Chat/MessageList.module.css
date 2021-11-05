@@ -1,6 +1,6 @@
 .messages__container {
-  width: 100%;
-  height: 100%;
+  /* width: 100%; */
+  /* height: 100%; */
   display: flex;
   justify-content: center;
   overflow-y: auto;
@@ -9,9 +9,9 @@
 
 .messages__feed {
   width: 50%;
-  height: 100%;
+  height: 575px;
   display: flex;
   flex-direction: column;
-  /* justify-content: flex-end; */
+  justify-content: flex-end;
   gap: 20px;
 }

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Username from "./Username";
@@ -6,16 +6,36 @@ import Interval from "./Interval";
 import classes from "./User.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { loginActions } from "../../store/login-reducer";
-import usePeerJS from "../../hooks/use-peer";
+import {
+  connectUser,
+  disconnectUser,
+  reconnectUser,
+} from "../../store/connection-actions";
 
 const User = function () {
   const [username, setUsername] = useState("");
   const [interval, setInterval] = useState("");
+  const [btnState, setBtnState] = useState("login");
 
   const dispatch = useDispatch();
-  let userStatus = useSelector((state) => state.login.userConnectionStatus);
+  const userStatus = useSelector((state) => state.login.userStatus);
 
-  const { connectUser, disconnectUser } = usePeerJS();
+  useEffect(() => {
+    switch (userStatus) {
+      case "":
+      case "error":
+        setBtnState("login");
+        break;
+      case "open":
+      case "connection":
+        setBtnState("logout");
+        break;
+      case "disconnected":
+        setBtnState("reconnect");
+        break;
+      default:
+    }
+  }, [userStatus]);
 
   const usernameHandler = function (event) {
     setUsername(event.target.value);
@@ -25,48 +45,29 @@ const User = function () {
     setInterval(event.target.value);
   };
 
-  const formSubmitHandler = function (event) {
-    event.preventDefault();
+  const submitHandler = function (event) {
+    if (btnState === "login") {
+      dispatch(loginActions.setUserName(username));
+      dispatch(loginActions.setUserTimer(interval));
+      dispatch(connectUser(username));
+    } else if (btnState === "logout") {
+      dispatch(disconnectUser());
+    } else if (btnState === "reconnect") {
+      dispatch(reconnectUser());
+    }
   };
-
-  const loginHandler = function (event) {
-    dispatch(loginActions.setUserName(username));
-    dispatch(loginActions.setUserTimer(interval));
-
-    connectUser();
-  };
-
-  const logoutHandler = function (event) {
-    disconnectUser();
-  };
-
-  const loginBtn = (
-    <Button
-      onClick={loginHandler}
-      className={classes.login__btn}
-      variant="primary"
-      type="submit"
-    >
-      Login
-    </Button>
-  );
-
-  const logoutBtn = (
-    <Button
-      onClick={logoutHandler}
-      className={classes.logout__btn}
-      variant="primary"
-      type="submit"
-    >
-      Logout
-    </Button>
-  );
 
   return (
-    <Form onSubmit={formSubmitHandler} className={classes.login__form}>
+    <Form className={classes.login__form}>
       <Username usernameHandler={usernameHandler} />
       <Interval intervalHandler={intervalHandler} />
-      {userStatus !== "connection" ? loginBtn : logoutBtn}
+      <Button
+        className={classes[`${btnState}__btn`]}
+        variant="primary"
+        onClick={submitHandler}
+      >
+        {btnState}
+      </Button>
     </Form>
   );
 };

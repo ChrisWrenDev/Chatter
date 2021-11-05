@@ -3,30 +3,31 @@ import { createSlice } from "@reduxjs/toolkit";
 const loginStatus = {
   userName: "",
   userTimer: 0,
-  userConnectionStatus: null,
+  userStatus: "", //close
   targetName: "",
-  targetConnectionStatus: null,
+  targetStatus: "",
 };
 
 const loginSlice = createSlice({
   name: "login",
   initialState: loginStatus,
   reducers: {
+    setUserTimer(state, action) {
+      state.userTimer = action.payload;
+    },
     setUserName(state, action) {
       state.userName = action.payload;
     },
-    setUserTimer(state, action) {
-      state.userTimer = action.payload;
+    setUserStatus(state, action) {
+      state.userStatus = action.payload;
+      console.log("User Status " + action.payload);
     },
     setTargetUsername(state, action) {
       state.targetName = action.payload;
     },
-    setUserConnectionStatus(state, action) {
-      state.userConnectionStatus = action.payload;
-      console.log(action.payload);
-    },
-    setTargetConnectionStatus(state, action) {
-      state.targetConnectionStatus = action.payload;
+    setTargetStatus(state, action) {
+      state.targetStatus = action.payload;
+      console.log("Target Status " + action.payload);
     },
   },
 });

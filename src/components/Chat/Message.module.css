@@ -1,4 +1,8 @@
 .message {
+  width: 100%;
+}
+
+.message__text {
   padding: 10px;
 }
 
