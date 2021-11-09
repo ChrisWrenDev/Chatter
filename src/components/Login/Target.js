@@ -1,36 +1,43 @@
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import TargetUsername from "./TargetUsername";
 import classes from "./Target.module.css";
-import { useSelector, useDispatch } from "react-redux";
-import { loginActions } from "../../store/login-reducer";
-import { connectTarget } from "../../store/connection-actions";
+import PeerContext from "../../context store/peer-context";
+import { useSelector } from "react-redux";
 
 const Target = function () {
   const [targetUsername, setTargetUsername] = useState("");
-  const userStatus = useSelector((state) => state.login.userStatus);
-  const dispatch = useDispatch();
+
+  const targetName = useSelector((state) => state.login.targetName);
+
+  useEffect(() => {
+    if (targetName !== "") {
+      setTargetUsername(targetName);
+    }
+  }, [targetName]);
+
+  const peer = useContext(PeerContext);
 
   const targetUsernameHandler = function (event) {
     setTargetUsername(event.target.value);
   };
 
   const submitHandler = function (event) {
-    dispatch(loginActions.setTargetUsername(targetUsername));
-    dispatch(connectTarget(targetUsername));
+    event.preventDefault();
+    peer.connectTarget(targetUsername);
   };
 
-  const disableBtn = userStatus !== "connection";
-
   return (
-    <Form>
-      <TargetUsername targetUsernameHandler={targetUsernameHandler} />
+    <Form onSubmit={submitHandler}>
+      <TargetUsername
+        value={targetUsername}
+        targetUsernameHandler={targetUsernameHandler}
+      />
       <Button
         className={classes.connect__btn}
         variant="secondary"
-        disabled={disableBtn}
-        onClick={submitHandler}
+        type="submit"
       >
         Connect
       </Button>

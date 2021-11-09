@@ -1,15 +1,14 @@
+import { useContext } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import classes from "./ChatForm.module.css";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { sendMessage } from "../../store/connection-actions";
+import PeerContext from "../../context store/peer-context";
 
 const ChatForm = function () {
   const [message, setMessage] = useState("");
-  const dispatch = useDispatch();
-  const user = useSelector((state) => state.login.userName);
-  const interval = useSelector((state) => state.login.userTimer);
+
+  const peer = useContext(PeerContext);
 
   const textInputHandler = function (event) {
     setMessage(event.target.value);
@@ -17,13 +16,7 @@ const ChatForm = function () {
 
   const submitMessageHandler = function (event) {
     event.preventDefault();
-    dispatch(
-      sendMessage({
-        user,
-        interval,
-        message,
-      })
-    );
+    peer.sendMessage(message);
   };
   return (
     <Form onSubmit={submitMessageHandler} className={classes.chatForm}>

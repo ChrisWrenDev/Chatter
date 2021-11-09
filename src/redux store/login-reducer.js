@@ -20,14 +20,14 @@ const loginSlice = createSlice({
     },
     setUserStatus(state, action) {
       state.userStatus = action.payload;
-      console.log("User Status " + action.payload);
+      console.log("User Status: " + action.payload);
     },
     setTargetUsername(state, action) {
       state.targetName = action.payload;
     },
     setTargetStatus(state, action) {
       state.targetStatus = action.payload;
-      console.log("Target Status " + action.payload);
+      console.log("Target Status: " + action.payload);
     },
   },
 });

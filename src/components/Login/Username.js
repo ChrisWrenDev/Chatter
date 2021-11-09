@@ -7,6 +7,7 @@ const Username = function (props) {
       <Form.Control
         type="text"
         name="username"
+        value={props.value}
         placeholder="Enter username"
         onChange={props.usernameHandler}
       />

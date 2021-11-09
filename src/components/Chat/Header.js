@@ -1,13 +1,13 @@
 import Button from "react-bootstrap/Button";
 import classes from "./Header.module.css";
-import { useDispatch } from "react-redux";
-import { disconnectTarget } from "../../store/connection-actions";
+import { useContext } from "react";
+import PeerContext from "../../context store/peer-context";
 
 const Header = function () {
-  const dispatch = useDispatch();
+  const peer = useContext(PeerContext);
 
   const disconnectHandler = function () {
-    dispatch(disconnectTarget());
+    peer.disconnectTarget();
   };
   return (
     <div className={classes.header}>
@@ -15,7 +15,7 @@ const Header = function () {
       <Button
         className={classes.header__btn}
         variant="primary"
-        type="submit"
+        type="button"
         onClick={disconnectHandler}
       >
         Disconnect

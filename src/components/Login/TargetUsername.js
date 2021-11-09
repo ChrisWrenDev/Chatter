@@ -7,6 +7,7 @@ const TargetUsername = function (props) {
       <Form.Control
         type="text"
         placeholder="Target username"
+        value={props.value}
         onChange={props.targetUsernameHandler}
       />
       <Form.Control.Feedback type="invalid">

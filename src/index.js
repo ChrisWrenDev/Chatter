@@ -1,15 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
+import { PeerProvider } from "./context store/peer-context";
 import { Provider } from "react-redux";
-import store from "./store/index";
+import store from "./redux store/index";
+import App from "./App";
+import "./index.css";
+import "./custom.scss";
+import reportWebVitals from "./reportWebVitals";
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <PeerProvider>
+        <App />
+      </PeerProvider>
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")

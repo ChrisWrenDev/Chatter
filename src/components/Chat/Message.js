@@ -2,7 +2,7 @@ import Card from "react-bootstrap/Card";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import classes from "./Message.module.css";
 import { useSelector, useDispatch } from "react-redux";
-import { chatActions } from "../../store/chat-reducer";
+import { chatActions } from "../../redux store/chat-reducer";
 import { useState, useEffect } from "react";
 
 const Message = function ({ id, user, message, interval }) {
