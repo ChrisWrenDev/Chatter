@@ -2,12 +2,34 @@
   width: 100%;
 }
 
+.user__message {
+  width: 100%;
+  color: grey;
+  background-color: #1d2b28;
+}
+
+.target__message {
+  width: 100%;
+  color: grey;
+  background-color: #253841;
+}
+
+.user__icon {
+  color: #4fc18a;
+  margin-left: 10px;
+}
+
+.target__icon {
+  color: white;
+  margin-left: 10px;
+}
+
 .message__text {
   padding: 10px;
 }
 
 .message__timer {
-  height: 0.5rem;
+  height: 0.25rem;
   border-radius: 0;
   background-color: transparent;
 }

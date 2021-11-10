@@ -17,12 +17,14 @@ const ChatForm = function () {
   const submitMessageHandler = function (event) {
     event.preventDefault();
     peer.sendMessage(message);
+    setMessage("");
   };
   return (
     <Form onSubmit={submitMessageHandler} className={classes.chatForm}>
       <Form.Control
         onChange={textInputHandler}
         as="textarea"
+        value={message}
         placeholder="Message..."
       />
       <Form.Control.Feedback type="invalid">

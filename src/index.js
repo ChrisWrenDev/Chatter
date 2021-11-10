@@ -4,7 +4,6 @@ import { PeerProvider } from "./context store/peer-context";
 import { Provider } from "react-redux";
 import store from "./redux store/index";
 import App from "./App";
-import "./index.css";
 import "./custom.scss";
 import reportWebVitals from "./reportWebVitals";
 

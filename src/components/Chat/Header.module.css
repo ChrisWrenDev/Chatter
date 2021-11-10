@@ -2,12 +2,10 @@
   display: flex;
   justify-content: space-between;
   padding: 25px;
-  border-bottom: solid 1px #ced4da;
+  border-bottom: solid 1px #090b0c;
 }
 
 .header__logo {
-  background: blue;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
+  height: 2rem;
+  align-self: center;
 }

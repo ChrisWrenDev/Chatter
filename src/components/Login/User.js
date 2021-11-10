@@ -11,16 +11,33 @@ const User = function () {
   const [username, setUsername] = useState("");
   const [interval, setInterval] = useState("");
   const [btnState, setBtnState] = useState("login");
+  const [usernameError, setUsernameError] = useState("");
+
+  const userName = useSelector((state) => state.login.userName);
+  const userStatus = useSelector((state) => state.login.userStatus);
+  const userTimer = useSelector((state) => state.login.userTimer);
 
   const peer = useContext(PeerContext);
-  const userStatus = useSelector((state) => state.login.userStatus);
-  const userName = useSelector((state) => state.login.userName);
 
   useEffect(() => {
     if (userName !== "") {
       setUsername(userName);
     }
   }, [userName]);
+
+  useEffect(() => {
+    if (userTimer !== "") {
+      setInterval(userTimer);
+    }
+  }, [userTimer]);
+
+  useEffect(() => {
+    if (userStatus === "open") {
+      setUsernameError("connected");
+    } else {
+      setUsernameError(userStatus);
+    }
+  }, [userStatus]);
 
   useEffect(() => {
     switch (userStatus) {
@@ -51,8 +68,13 @@ const User = function () {
   const submitHandler = function (event) {
     event.preventDefault();
 
+    if (username === "") {
+      setUsernameError("Please enter username");
+      return;
+    }
+
     if (btnState === "login") {
-      peer.connectUser(username, interval);
+      peer.connectUser({ username, interval });
     } else if (btnState === "logout") {
       peer.disconnectUser();
     } else if (btnState === "reconnect") {
@@ -62,8 +84,12 @@ const User = function () {
 
   return (
     <Form onSubmit={submitHandler} className={classes.login__form}>
-      <Username value={username} usernameHandler={usernameHandler} />
-      <Interval intervalHandler={intervalHandler} />
+      <Username
+        value={username}
+        error={usernameError}
+        usernameHandler={usernameHandler}
+      />
+      <Interval value={interval} intervalHandler={intervalHandler} />
       <Button
         className={classes[`${btnState}__btn`]}
         variant="primary"

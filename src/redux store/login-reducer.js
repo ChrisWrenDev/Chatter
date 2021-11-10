@@ -28,6 +28,8 @@ const loginSlice = createSlice({
     setTargetStatus(state, action) {
       state.targetStatus = action.payload;
       console.log("Target Status: " + action.payload);
+      console.log("Target Name: " + state.targetName);
+      console.log("User Interval: " + state.userTimer);
     },
   },
 });

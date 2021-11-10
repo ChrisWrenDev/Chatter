@@ -1,37 +1,42 @@
-import Card from "react-bootstrap/Card";
+//import Card from "react-bootstrap/Card";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import classes from "./Message.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { chatActions } from "../../redux store/chat-reducer";
 import { useState, useEffect } from "react";
+import { BsFillCircleFill } from "react-icons/bs";
 
 const Message = function ({ id, user, message, interval }) {
   const [duration, setDuration] = useState(0);
   const [percentage, setPercentage] = useState(0);
 
   const userName = useSelector((state) => state.login.userName);
+
   const dispatch = useDispatch();
 
-  const type = user === userName ? "USER" : "TARGET";
+  const type = user === userName ? "user" : "target";
 
   useEffect(() => {
     if (duration < interval) {
-      setTimeout(() => {
-        setDuration((state) => state + 0.5);
+      const timer = setTimeout(() => {
+        setDuration((state) => state + 0.1);
         setPercentage((duration / interval) * 100);
-      }, 500);
+      }, 100);
+
+      return () => {
+        clearTimeout(timer);
+      };
     } else {
       dispatch(chatActions.removeMessage(id));
     }
   }, [duration, interval, id, dispatch]);
 
   return (
-    <Card className={classes.message}>
-      <p>{type}</p>
-      <p>{duration}</p>
+    <div className={classes[`${type}__message`]}>
+      <BsFillCircleFill className={classes[`${type}__icon`]} />
       <p className={classes.message__text}>{message}</p>
       <ProgressBar now={percentage} className={classes.message__timer} />
-    </Card>
+    </div>
   );
 };
 

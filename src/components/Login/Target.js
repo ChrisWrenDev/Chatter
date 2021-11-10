@@ -8,8 +8,16 @@ import { useSelector } from "react-redux";
 
 const Target = function () {
   const [targetUsername, setTargetUsername] = useState("");
+  const [targetError, setTargetError] = useState("");
 
   const targetName = useSelector((state) => state.login.targetName);
+  const targetStatus = useSelector((state) => state.login.targetStatus);
+
+  useEffect(() => {
+    if (targetStatus !== "") {
+      setTargetError(targetStatus);
+    }
+  }, [targetStatus]);
 
   useEffect(() => {
     if (targetName !== "") {
@@ -32,6 +40,7 @@ const Target = function () {
     <Form onSubmit={submitHandler}>
       <TargetUsername
         value={targetUsername}
+        error={targetError}
         targetUsernameHandler={targetUsernameHandler}
       />
       <Button

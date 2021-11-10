@@ -23,11 +23,11 @@ export const PeerProvider = function (props) {
   const user = useSelector((state) => state.login.userName);
   const interval = useSelector((state) => state.login.userTimer);
 
-  const connectUserHandler = (username, interval) => {
-    setUserConn(new Peer(username));
+  const connectUserHandler = (user) => {
+    setUserConn(new Peer(user.username));
 
-    dispatch(loginActions.setUserName(username));
-    dispatch(loginActions.setUserTimer(interval));
+    dispatch(loginActions.setUserName(user.username));
+    dispatch(loginActions.setUserTimer(user.interval));
   };
   const reconnectUserHander = () => {
     userConn.reconnect();
@@ -43,7 +43,6 @@ export const PeerProvider = function (props) {
     });
 
     userConn.on("connection", function (conn) {
-      console.log(conn);
       setConnection((prevConnections) => [...prevConnections, conn]);
     });
 
@@ -55,15 +54,48 @@ export const PeerProvider = function (props) {
       dispatch(loginActions.setUserStatus("disconnected"));
     });
 
-    userConn.on("error", function () {
-      dispatch(loginActions.setUserStatus("error"));
+    userConn.on("error", function (err) {
+      switch (err.type) {
+        case "browser-incompatible":
+          dispatch(
+            loginActions.setUserStatus(
+              "Not compatible with browser. Please try google chrome."
+            )
+          );
+          break;
+        case "disconnected":
+          dispatch(loginActions.setTargetStatus("Target has ended the chat."));
+          break;
+        case "invalid-id":
+        case "invalid-key":
+        case "peer-unavailable":
+          dispatch(loginActions.setTargetStatus("Target not available."));
+          break;
+        case "unavailable-id":
+          dispatch(
+            loginActions.setUserStatus("That username is taken.Try another.")
+          );
+          break;
+        case "network":
+        case "server-error":
+        case "socket-error":
+        case "socket-closed":
+        case "webrtc":
+          dispatch(
+            loginActions.setUserStatus(
+              "There was an error with the connection. Please try again later."
+            )
+          );
+          break;
+        default:
+          break;
+      }
     });
   }, [userConn, dispatch]);
 
   const connectTargetHandler = (target) => {
-    loginActions.setTargetUsername(target);
+    dispatch(loginActions.setTargetUsername(target));
     let connIndex = connections.findIndex((conn) => conn.peer === target);
-    console.log(connIndex);
     if (connIndex !== -1) {
       setTargetConn(connections[connIndex]);
       dispatch(loginActions.setTargetStatus("connection"));
@@ -73,6 +105,8 @@ export const PeerProvider = function (props) {
   };
   const disconnectTargetHandler = () => {
     targetConn.close();
+    setConnection([]);
+    dispatch(chatActions.resetMessages());
   };
 
   useEffect(() => {
@@ -87,7 +121,13 @@ export const PeerProvider = function (props) {
     });
 
     targetConn.on("close", function () {
-      dispatch(loginActions.setTargetStatus("close"));
+      dispatch(
+        loginActions.setTargetStatus(
+          `Disconnected from target. please try reconnect.`
+        )
+      );
+      setConnection([]);
+      dispatch(chatActions.resetMessages());
     });
 
     targetConn.on("error", function (err) {
@@ -101,7 +141,7 @@ export const PeerProvider = function (props) {
       interval,
       message,
     });
-    dispatch(chatActions.addMessage({ message, interval }));
+    dispatch(chatActions.addMessage({ user, message, interval }));
     console.log("Message Sent: " + message);
   };
 

@@ -1,3 +1,37 @@
-// $primary: #20c997;
+//Overwrite theme variables
+$primary: #4fc18a;
+$secondary: #ebebeb;
+$dark: #090b0c;
+$light: #111516;
+$success: #ebebeb;
+$info: #ebebeb;
+$warning: #4fc18a;
+$danger: #4fc18a;
+
+// Settings for the `<body>` element
+$body-bg: #090b0c;
+$body-color: #ebebeb;
+
+// scss-docs-start border-radius-variables
+$border-radius: 0;
+
+// scss-docs-start form-input-variables
+
+$form-label-color: #8a8c8e;
+
+$input-bg: #0f1314;
+$input-disabled-bg: #0f1314;
+$input-focus-bg: #0f1314;
+
+$input-border-color: #111516;
+$input-focus-border-color: #4fc18a;
+
+// scss-docs-start card-variables
+$card-bg: #111516;
+
+// scss-docs-start progress-variables
+$progress-height: 0.25rem;
+$progress-bg: transparent;
+$progress-bar-color: #4fc18a;
 
 @import "../node_modules/bootstrap/scss/bootstrap";

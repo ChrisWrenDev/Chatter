@@ -32,6 +32,10 @@ const chatSlice = createSlice({
         (item) => item.id !== action.payload
       );
     },
+    resetMessages(state) {
+      state.messages = [];
+      state.chatDuration = 0;
+    },
     updateChatDuration(state, action) {
       state.chatDuration = action.payload;
     },
